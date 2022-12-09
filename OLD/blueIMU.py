@@ -10,13 +10,12 @@ import wiringpi
 wiringpi.wiringPiSetup() 
 wiringpi.pinMode(2, 1)
 wiringpi.digitalWrite(2, 0)
-
 i2c = I2C(1)  # Device is /dev/i2c-1
 sensor = adafruit_bno055.BNO055_I2C(i2c)
 ser0 = serial.Serial("/dev/ttySC0", 9600)
 
 gpgga_info = "$GPGGA,"
-ser1 = serial.Serial ("/dev/ttyACM0", 9600)              #Open port with baud rate
+ser1 = serial.Serial ("/dev/ttySC1", 9600)              #Open port with baud rate
 GPGGA_buffer = 0
 NMEA_buff = 0
 lat_in_degrees = 0
@@ -24,8 +23,7 @@ long_in_degrees = 0
 numSatellites = 0
 elevation = 0.0
 
-ser2 = serial.Serial("/dev/ttySC1", baudrate = 9600, parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE, bytesize=8, timeout=1)
-#ser2 = serial.Serial("/dev/ttySC1", 9600)
+#ser1 = serial.Serial("/dev/ttyACM0", 9600)
 
 def GPS_Info():
     global NMEA_buff
@@ -42,6 +40,12 @@ def GPS_Info():
     numSatellites = NMEA_buff[6]
     elevation = NMEA_buff[8]
     
+    
+    print("NMEA Time: ", nmea_time,'\n')
+    print ("NMEA Latitude:", nmea_latitude,"NMEA Longitude:", nmea_longitude,'\n')
+    print(type(nmea_latitude))
+    print(type(nmea_longitude))
+    print()
     
     if nmea_latitude == "":
         if  nmea_longitude == "":
@@ -106,46 +110,38 @@ with open(fileSD, 'w', newline='') as csvfile:
 
         latStr = ("Latitude: {}".format(lat_in_degrees))
         ser0.write(bytes(latStr, 'utf-8'))
-        ser2.write(bytes(latStr, 'utf-8'))
         ser0.write(b"\n")
-        ser2.write(b"\n")
 
         longStr = ("Longitude: {}".format(long_in_degrees))
         ser0.write(bytes(longStr, 'utf-8'))
-        ser2.write(bytes(longStr, 'utf-8'))
         ser0.write(b"\n")
-        ser2.write(b"\n")
 
         eleStr = ("Elevation: {}".format(elevation))
         ser0.write(bytes(eleStr, 'utf-8'))
-        ser2.write(bytes(eleStr, 'utf-8'))
         ser0.write(b"\n")
-        ser2.write(b"\n")
 
         satStr = ("Number of Satellites: {}".format(numSatellites))
         ser0.write(bytes(satStr, 'utf-8'))
-        ser2.write(bytes(satStr, 'utf-8'))
         ser0.write(b"\n")
-        ser2.write(b"\n")
 
 
         gyroStr = ("Gyroscope (rad/sec): {}".format(gyro))
         ser0.write(bytes(gyroStr, 'utf-8'))
-        ser2.write(bytes(gyroStr, 'utf-8'))
+        #ser1.write(bytes(gyroStr, 'utf-8'))
         ser0.write(b"\n")
-        ser2.write(b"\n")
+        #ser1.write(b"\n")
         
         accelStr = ("Accelerometer (m/s^2): {}".format(accel))
         ser0.write(bytes(accelStr, 'utf-8'))
-        ser2.write(bytes(accelStr, 'utf-8'))
+        #ser1.write(bytes(accelStr, 'utf-8'))
         ser0.write(b"\n")
-        ser2.write(b"\n")
+        #ser1.write(b"\n")
 
         magStr = ("Magnetometer (uT): {}".format(mag))
         ser0.write(bytes(magStr, 'utf-8'))
-        ser2.write(bytes(magStr, 'utf-8'))
+        #ser1.write(bytes(magStr, 'utf-8'))
         ser0.write(b"\n\n")
-        ser2.write(b"\n\n\n")
+        #ser1.write(b"\n")
 
         writer.writerow({'Time': ctime,'Latitude': lat_in_degrees,'Longitude': long_in_degrees,'Elevation': elevation,'Number of Satellites Locked': numSatellites,'Angular Velocity': gyro, 'Acceleration': accel, 'Magnetic Field': mag})
-        time.sleep(2)
+        time.sleep(1.5)
