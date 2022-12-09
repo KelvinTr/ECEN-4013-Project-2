@@ -25,7 +25,6 @@ numSatellites = 0
 elevation = 0.0
 
 ser2 = serial.Serial("/dev/ttySC1", baudrate = 9600, parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE, bytesize=8, timeout=1)
-#ser2 = serial.Serial("/dev/ttySC1", 9600)
 
 def GPS_Info():
     global NMEA_buff
