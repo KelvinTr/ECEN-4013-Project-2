@@ -3,7 +3,7 @@
  
  Necessary Python Libraries:
  
-  A. WiringPi:    
+  A. WiringPi:    \n\n\n\n
           pip3 install wiringpi
   
   B. Adafruit:
