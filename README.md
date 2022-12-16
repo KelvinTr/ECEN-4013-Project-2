@@ -3,15 +3,13 @@
  
  Necessary Python Libraries:
  
-  A. WiringPi:    \n\n\n\n
-          pip3 install wiringpi
+  A.              WiringPi:  pip3 install wiringpi
   
-  B. Adafruit:
-          pip3 install adafruit-extended-bus
-          pip3 install adafruit-circuitpython-bno055
+  B. Adafruit Extended Bus:  pip3 install adafruit-extended-bus
+  
+  C.       Adafruit BNO055:  pip3 install adafruit-circuitpython-bno055
           
-  C. PySerial:
-          pip3 install pyserial
+  D.              PySerial:  pip3 install pyserial
  
  
 
@@ -30,6 +28,6 @@ Acknowledgement, Credit, Reference, More Info:
 
 WiringPi: https://github.com/WiringPi/WiringPi-Python
 Adafruit: https://pypi.org/project/adafruit-extended-bus/
-          https://github.com/adafruit/Adafruit_CircuitPython_BNO055
+Adafruit: https://github.com/adafruit/Adafruit_CircuitPython_BNO055
 PySerial: https://pyserial.readthedocs.io/en/latest/pyserial.html
 
