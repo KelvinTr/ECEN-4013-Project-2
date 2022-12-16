@@ -2,6 +2,7 @@
  Create a working GPS tracker with low-level and high-level implementation
  
  Necessary Python Libraries:
+ 
   A. WiringPi:    
           pip3 install wiringpi
   
